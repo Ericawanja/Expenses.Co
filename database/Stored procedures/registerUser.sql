@@ -1,5 +1,5 @@
 create
-or Alter Procedure registerOrUpdateUSer(
+or Alter Procedure registerOrUpdateUser(
     @id varchar(100),
     @fullname varchar(100),
     @email varchar(100),
