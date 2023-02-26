@@ -1,8 +1,8 @@
-import express, {Application, Request, Response} from 'express'
+import express, {Application, json, Request, Response} from 'express'
+import  auth  from './Routes'
 
 const app:Application = express()
+app.use(json())
 
-app.get ('/', (req:Request, res:Response)=>{
-    res.status(200).json({msg:'setting up the server'})
-})
+app.use ('/auth', auth )
 app.listen(5000, ()=>console.log('app running'))
