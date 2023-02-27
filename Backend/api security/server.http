@@ -2,8 +2,9 @@ Post http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "id": "124",
+   
     "fullname":"John Doe",
-    "email":"doe@gmail.com",
-    "password":"123456789"
+    "email":"doej@gmail.com",
+    "password":"123456789",
+    "isAdmin": true
 }
