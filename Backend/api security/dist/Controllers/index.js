@@ -15,21 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dbConnect_1 = require("../helpers/dbConnect");
+const uuid_1 = require("uuid");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { id, fullname, email, password, isAdmin = false } = req.body;
+    let { fullname, email, password, isAdmin = false } = req.body;
     try {
         let exists = (yield dbConnect_1.db.execute("getUSer", { email })).length === 0 ? false : true;
         if (exists)
             return res.status(400).json({ error: "Wrong registration details" });
         let hashedPassword = yield bcrypt_1.default.hash(password, 8);
-        yield dbConnect_1.db.execute("registerUser", {
+        let id = (0, uuid_1.v4)();
+        yield dbConnect_1.db.execute("registerOrUpdateUser", {
             id,
             fullname,
             email,
             password: hashedPassword,
             isAdmin: isAdmin,
         });
-        res.status(200).json({ info: exists });
+        res.status(200).json({ message: "user added succesfully" });
     }
     catch (error) {
         let message = error || "Try again later can't process the request now";
