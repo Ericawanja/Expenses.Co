@@ -1,0 +1,4 @@
+create table resetQueue(
+    email varchar(100), 
+    isSent Bit default 0
+)
