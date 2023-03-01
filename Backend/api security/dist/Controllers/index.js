@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
+exports.forgot = exports.login = exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dbConnect_1 = require("../helpers/dbConnect");
 const uuid_1 = require("uuid");
@@ -58,3 +58,18 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.login = login;
+const forgot = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    try {
+        let user = yield dbConnect_1.db.execute("getUSer", { email });
+        if (user.length < 0)
+            return res.status(400).json({ error: "Wrong login details" });
+        yield dbConnect_1.db.execute('insertResetQUeue', { email });
+        res.status(200).json({ message: "Please check your email for a reset link" });
+    }
+    catch (error) {
+        let message = error || "Try again later can't process the request now";
+        res.status(500).json({ error: message });
+    }
+});
+exports.forgot = forgot;
