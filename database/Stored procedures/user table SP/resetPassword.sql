@@ -1,4 +1,4 @@
-create or alter procedure passwordReset (
+create or alter procedure resetPassword (
      @email varchar(100),
        @password varchar(100)
 )

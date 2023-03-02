@@ -19,3 +19,21 @@ Content-Type: application/json
     "password":"123456789"
    
 }
+###
+Post http://localhost:5000/auth/forgot
+Content-Type: application/json
+
+{
+    "email":"doej@gmail.com"
+}
+
+###
+Post http://localhost:5000/auth/reset
+Content-Type: application/json
+
+{  
+   
+    "email":"doej@gmail.com",
+    "password":"123456789"
+   
+}
