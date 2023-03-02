@@ -17,6 +17,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const dbConnect_1 = require("../helpers/dbConnect");
 const uuid_1 = require("uuid");
 const generateToken_1 = require("../helpers/generateToken");
+const verifyToken_1 = require("../helpers/verifyToken");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let { fullname, email, password, isAdmin = false } = req.body;
     try {
@@ -44,7 +45,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let { email, password } = req.body;
     try {
         let user = yield dbConnect_1.db.execute("getUSer", { email });
-        if (user.length < 0)
+        if (user.length === 0)
             return res.status(400).json({ error: "Wrong login details" });
         let isCorrect = yield bcrypt_1.default.compare(password, user[0].password);
         if (!isCorrect)
@@ -66,7 +67,7 @@ const forgot = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
     try {
         let user = yield dbConnect_1.db.execute("getUSer", { email });
-        if (user.length < 0)
+        if (user.length === 0)
             return res.status(400).json({ error: "Wrong login details" });
         const token = (0, generateToken_1.generateToken)({ email });
         yield dbConnect_1.db.execute("insertResetQUeue", { email, token });
@@ -84,18 +85,19 @@ const reset = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
         let user = yield dbConnect_1.db.execute("getUSer", { email });
-        if (user.length < 0)
+        if (user.length === 0)
             return res.status(400).json({ error: "Wrong login details" });
         let inReset = yield dbConnect_1.db.execute("getFromResetQueue", { email });
-        if (inReset.length < 0)
+        if (inReset.length === 0)
             return res.status(400).json({ error: "An error Occured" });
         let token = inReset[0].token;
-        console.log(inReset);
-        // let hashedPassword = await bcrypt.hash(password, 8);
-        // await db.execute("resetPassword", { email, hashedPassword });
-        res
-            .status(200)
-            .json({ message: token });
+        const decodedData = yield (0, verifyToken_1.verifyToken)(token);
+        if (!decodedData)
+            return res.status(400).json({ error: "An error Occured" });
+        let hashedPassword = yield bcrypt_1.default.hash(password, 8);
+        yield dbConnect_1.db.execute("resetPassword", { email, password: hashedPassword });
+        yield dbConnect_1.db.execute("removeFromResetQueue", { email });
+        res.status(200).json({ message: "Login details updated successfully" });
     }
     catch (error) {
         let message = error || "Try again later can't process the request now";

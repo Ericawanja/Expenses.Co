@@ -1,5 +1,5 @@
 create
-or alter procedure removeEmail(@email varchar(100)) AS BEGIN
+or alter procedure removeFromResetQueue(@email varchar(100)) AS BEGIN
 delete from
     resetQueue
 where
