@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { db } from "../helpers/dbConnect";
 import { v4 as uuidv4 } from "uuid";
-import { generateToken } from "../helpers/generateToken";
+import { generateToken } from '../helpers/generateToken';
 
 interface registerRequest extends Request {
   body: {
@@ -62,7 +62,11 @@ export const login = async (req: loginRequest, res: Response) => {
     if (!isCorrect)
       return res.status(400).json({ error: "invalid login creditials" });
 
-    const token = generateToken(user[0].email, user[0].id, user[0].isAdmin);
+    const token = generateToken({
+      email: user[0].email,
+      id: user[0].id,
+      isAdmin: user[0].isAdmin,
+    });
     return res.status(200).json({ status: "succesful login", token });
   } catch (error) {
     let message = error || "Try again later can't process the request now";
@@ -76,8 +80,34 @@ export const forgot = async (req: forgotRequest, res: Response) => {
     let user = await db.execute("getUSer", { email });
     if (user.length < 0)
       return res.status(400).json({ error: "Wrong login details" });
-    await db.execute('insertResetQUeue', {email})  
-    res.status(200).json({message: "Please check your email for a reset link"})  
+    const token = generateToken({ email });
+    await db.execute("insertResetQUeue", { email, token });
+    res
+      .status(200)
+      .json({ message: "Please check your email for a reset link" });
+  } catch (error) {
+    let message = error || "Try again later can't process the request now";
+    res.status(500).json({ error: message });
+  }
+};
+
+export const reset = async (req: loginRequest, res: Response) => {
+  const { email, password } = req.body;
+  try {
+    let user = await db.execute("getUSer", { email });
+    if (user.length < 0)
+      return res.status(400).json({ error: "Wrong login details" });
+    let inReset = await db.execute("getFromResetQueue", { email });
+    if (inReset.length < 0)
+      return res.status(400).json({ error: "An error Occured" });
+    let token =  inReset[0].token 
+      console.log(inReset)
+    // let hashedPassword = await bcrypt.hash(password, 8);
+    // await db.execute("resetPassword", { email, hashedPassword });
+
+    res
+      .status(200)
+      .json({ message: token });
   } catch (error) {
     let message = error || "Try again later can't process the request now";
     res.status(500).json({ error: message });
