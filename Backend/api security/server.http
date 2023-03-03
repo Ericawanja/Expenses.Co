@@ -4,7 +4,7 @@ Content-Type: application/json
 {
    
     "fullname":"John Doe",
-    "email":"doej@gmail.com",
+    "email":"john@gmail.com",
     "password":"123456789",
     "isAdmin": true
 }
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 {  
    
-    "email":"doej@gmail.com",
+    "email":"john@gmail.com",
     "password":"123456789"
    
 }
@@ -24,7 +24,7 @@ Post http://localhost:5000/auth/forgot
 Content-Type: application/json
 
 {
-    "email":"doej@gmail.com"
+    "email":"john@gmail.com"
 }
 
 ###
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 {  
    
-    "email":"doej@gmail.com",
+    "email":"john@gmail.com",
     "password":"123456789"
    
 }
