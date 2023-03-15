@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.db = void 0;
 const mssql_1 = __importDefault(require("mssql"));
 const config_1 = require("../config");
 class Connection {
@@ -32,3 +33,4 @@ class Connection {
         this.pool = mssql_1.default.connect(config_1.sqlConfig);
     }
 }
+exports.db = new Connection();

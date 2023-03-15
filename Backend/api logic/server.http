@@ -1,1 +1,10 @@
 Post http://localhost:4500/clients/add
+Content-Type: application/json
+
+{ 
+ 
+    "email":"john@gmail.com",   
+    "name": "Cod.ltd",
+    "location":
+
+}

@@ -1,10 +1,10 @@
-import {Application, json, Request, Response} from 'express'
+import { Request, Response} from 'express'
 
-
-
-export const addClient = (req:Request, res:Response)=>{
+export const addClient = async(req:Request, res:Response)=>{
     const {name, email, location } = req.body
-   res.send('jjj jjj')
+    console.log(name,email)
+    res.send("done")
+   
 } 
 export const updateClientDetails = (req:Request, res:Response)=>{
     res.send('the app')
