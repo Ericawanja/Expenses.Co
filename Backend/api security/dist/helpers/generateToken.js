@@ -9,6 +9,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 dotenv_1.default.config({ path: path_1.default.resolve(__dirname, "../../.env") });
 const generateToken = (payload) => {
+    console.log(payload);
     return jsonwebtoken_1.default.sign(payload, process.env.SECRET_KEY, {
         expiresIn: "24h",
     });

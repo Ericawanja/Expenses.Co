@@ -8,7 +8,7 @@ class Connection {
   }
   createRequest = (
     request: mssql.Request,
-    data: { [x: string]: string | Boolean }
+    data: { [x: string]: string | Boolean | number}
   ) => {
     const keys = Object.keys(data);
 
@@ -19,7 +19,7 @@ class Connection {
   };
   execute = async (
     storedProcedure: string,
-    data: { [x: string]: string | Boolean }
+    data: { [x: string]: string | Boolean | number }
   ) => {
     let request = await (await this.pool).request();
     let requestObj = this.createRequest(request, data);

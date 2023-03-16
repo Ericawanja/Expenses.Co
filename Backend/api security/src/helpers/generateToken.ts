@@ -11,6 +11,7 @@ interface payload {
 }
 
 export const generateToken = (payload: payload) => {
+  console.log(payload)
   return jwt.sign(payload, process.env.SECRET_KEY as string, {
     expiresIn: "24h",
   });

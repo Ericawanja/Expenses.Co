@@ -5,7 +5,7 @@ import verify from '../middlewares/verify/index';
 const clientsRoutes = Router()
 
 clientsRoutes.post("/add", verify, addClient)
-clientsRoutes.put("/:id", updateClientDetails)
-clientsRoutes.delete("/:id", removeClient)
+clientsRoutes.put("/:id", verify, updateClientDetails)
+clientsRoutes.delete("/:id", verify, removeClient)
 
 export default clientsRoutes
