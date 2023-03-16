@@ -1,7 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const clients_1 = require("../Controllers/clients");
+const index_1 = __importDefault(require("../middlewares/verify/index"));
 const clientsRoutes = (0, express_1.Router)();
-clientsRoutes.post("/add", clients_1.addClient);
+clientsRoutes.post("/add", index_1.default, clients_1.addClient);
+clientsRoutes.put("/:id", clients_1.updateClientDetails);
+clientsRoutes.delete("/:id", clients_1.removeClient);
 exports.default = clientsRoutes;
