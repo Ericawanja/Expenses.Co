@@ -30,29 +30,49 @@ export const updateClientDetails = async (
   res: Response
 ) => {
   try {
-    console.log("updating..")
     let loggedUser = req.info;
-    console.log(loggedUser)
+    console.log(loggedUser);
     if (!loggedUser.isAdmin)
       return res.status(401).json({ message: "You cannot add a client" });
 
-    const {id} = req.params;
-    
+    const { id } = req.params;
+
     const { name, email, location } = req.body;
-    const user = await db.execute("getclients", { id});
-    console.log(user);
+    const user = await db.execute("getclients", { id });
+
     if (user.length === 0)
       return res.status(400).json({ error: "Wrong details entered" });
-    await db.execute("insertOrUpdateClient", {id,name,email,location})
+    await db.execute("insertOrUpdateClient", { id, name, email, location });
 
     res.status(201).json({ message: "client updated successfully" });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     let message = error || "An error occured. Please try later";
     res.status(500).json({ error: message });
   }
 };
 
-export const removeClient = (req: Request, res: Response) => {
-  res.send("the app");
+export const removeClient = async (req: ExtendedRequest, res: Response) => {
+  try {
+    let loggedUser = req.info;
+
+    if (!loggedUser.isAdmin)
+      return res.status(401).json({ message: "You cannot add a client" });
+
+    const { id } = req.params;
+
+    const user = await db.execute("getclients", { id });
+   
+    if (user.length === 0)
+      return res.status(400).json({ error: "Wrong details entered" });
+    await db.execute("removeClient", { id });
+
+    return res
+      .status(200)
+      .json({ message: "You have successfully removed the client" });
+  } catch (error) {
+    console.log(error);
+    let message = error || "An error occured. Please try later";
+    res.status(500).json({ error: message });
+  }
 };

@@ -33,7 +33,6 @@ const addClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addClient = addClient;
 const updateClientDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("updating..");
         let loggedUser = req.info;
         console.log(loggedUser);
         if (!loggedUser.isAdmin)
@@ -41,7 +40,6 @@ const updateClientDetails = (req, res) => __awaiter(void 0, void 0, void 0, func
         const { id } = req.params;
         const { name, email, location } = req.body;
         const user = yield dbConnect_1.db.execute("getclients", { id });
-        console.log(user);
         if (user.length === 0)
             return res.status(400).json({ error: "Wrong details entered" });
         yield dbConnect_1.db.execute("insertOrUpdateClient", { id, name, email, location });
@@ -54,7 +52,24 @@ const updateClientDetails = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.updateClientDetails = updateClientDetails;
-const removeClient = (req, res) => {
-    res.send("the app");
-};
+const removeClient = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        let loggedUser = req.info;
+        if (!loggedUser.isAdmin)
+            return res.status(401).json({ message: "You cannot add a client" });
+        const { id } = req.params;
+        const user = yield dbConnect_1.db.execute("getclients", { id });
+        if (user.length === 0)
+            return res.status(400).json({ error: "Wrong details entered" });
+        yield dbConnect_1.db.execute("removeClient", { id });
+        return res
+            .status(200)
+            .json({ message: "You have successfully removed the client" });
+    }
+    catch (error) {
+        console.log(error);
+        let message = error || "An error occured. Please try later";
+        res.status(500).json({ error: message });
+    }
+});
 exports.removeClient = removeClient;

@@ -11,7 +11,7 @@ or alter procedure getClients(
 from
     clients
 where
-    id = @id OR email= @email
+    id = @id  and isDeleted = 0 OR email= @email
     and isDeleted = 0
 
 END
