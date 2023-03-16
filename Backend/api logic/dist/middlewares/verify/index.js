@@ -26,7 +26,6 @@ function verify(req, res, next) {
             const token = bearer.split(" ")[1];
             const decodedData = yield jsonwebtoken_1.default.verify(token, process.env.SECRET_KEY);
             req.info = decodedData;
-            console.log("middleware");
             next();
         }
         catch (error) {

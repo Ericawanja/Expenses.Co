@@ -25,7 +25,7 @@ export default async function verify(
       process.env.SECRET_KEY as string
     );
     req.info = decodedData;
-    console.log("middleware");
+
     next();
   } catch (error) {
     let message = error || "An error occured try again later";
