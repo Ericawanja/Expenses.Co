@@ -25,6 +25,7 @@ function verify(req, res, next) {
             }
             const token = bearer.split(" ")[1];
             const decodedData = yield jsonwebtoken_1.default.verify(token, process.env.SECRET_KEY);
+            console.log(decodedData);
             req.info = decodedData;
             next();
         }

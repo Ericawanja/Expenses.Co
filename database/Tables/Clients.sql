@@ -3,4 +3,5 @@ create table clients(
     name varchar(100) Not null,
     email varchar(150) Not Null,
     location varchar(100) Not null,
+    isDeleted Bit default 0
 )

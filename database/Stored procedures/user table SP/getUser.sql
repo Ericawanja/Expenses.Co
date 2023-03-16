@@ -3,7 +3,7 @@ or alter procedure getUser(@email varchar(100)) AS BEGIN
 select
     id,
     fullname,
-	email
+	email,
     isAdmin,
     password
 from users

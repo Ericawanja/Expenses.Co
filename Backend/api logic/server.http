@@ -1,6 +1,6 @@
 Post http://localhost:4500/clients/add
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZjRjYTBkLWM3ZWMtNDFiNy04OTRiLTcxZjhmYTNlM2FkYyIsImlzQWRtaW4iOiJqb2huQGdtYWlsLmNvbSIsImlhdCI6MTY3ODk3Mjc5MSwiZXhwIjoxNjc5MDU5MTkxfQ.6wRSLBOvLXqRsGEO-7N0WoLZ9WK1GCR6tlNArz-6WNQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Nzg5ODgxODQsImV4cCI6MTY3OTA3NDU4NH0.JQqTJVi_Sl2UoZheGCLZUEfyVstaW2E7uFSzfSzdw8s
 
 { 
  
@@ -9,3 +9,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI4ZjRjYTBkL
     "location":"ju"
 
 }
+###
+PUT http://localhost:4500/clients/124
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Nzg5ODgxODQsImV4cCI6MTY3OTA3NDU4NH0.JQqTJVi_Sl2UoZheGCLZUEfyVstaW2E7uFSzfSzdw8s
+
+{ 
+ 
+    "email":"john@gmail.com",   
+    "name": "Cod.ltd",
+    "location":"Africa"
+
+}
+

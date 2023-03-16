@@ -24,6 +24,7 @@ export default async function verify(
       token,
       process.env.SECRET_KEY as string
     );
+    console.log(decodedData)
     req.info = decodedData;
 
     next();
