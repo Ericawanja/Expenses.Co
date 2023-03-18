@@ -25,6 +25,7 @@ export const addClient = async (req: ExtendedRequest, res: Response) => {
     res.status(500).json({ error: message });
   }
 };
+
 export const updateClientDetails = async (
   req: ExtendedRequest,
   res: Response
