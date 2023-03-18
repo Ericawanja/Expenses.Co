@@ -1,7 +1,7 @@
 create
-or alter procedure getClients(
-@id varchar(100) = '_',
-@email varchar(100) = '_'
+or alter procedure getOneClient(
+@id varchar(100) ="_", 
+@email varchar(100) = "_"
 ) AS BEGIN select
 
     id,

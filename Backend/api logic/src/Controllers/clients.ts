@@ -1,10 +1,31 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import { db } from "../helpers/dbConnect";
 import { v4 as uuidv4 } from "uuid";
 
 interface ExtendedRequest extends Request {
   info?: any;
 }
+
+export const getAllClients: RequestHandler = async (req, res) => {
+  try {
+    let clients = await db.execute("getAllClients");
+    return res.status(200).json({ data: clients });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+export const getOneClient: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let client = await db.execute("getOneClient", { id });
+    if (client.length === 0)
+      return res.status(404).json({ error: "Client not found" });
+    return res.status(200).json({ data: client });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
 
 export const addClient = async (req: ExtendedRequest, res: Response) => {
   try {
@@ -63,7 +84,7 @@ export const removeClient = async (req: ExtendedRequest, res: Response) => {
     const { id } = req.params;
 
     const user = await db.execute("getclients", { id });
-   
+
     if (user.length === 0)
       return res.status(400).json({ error: "Wrong details entered" });
     await db.execute("removeClient", { id });

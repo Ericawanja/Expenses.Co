@@ -27,6 +27,8 @@ export const getAllProjects: RequestHandler = async (req, res) => {
 
 export const addProject: RequestHandler = async (req, res) => {
   const { clientId, projectTitle, projectType, assigned_on, due_on } = req.body;
+console.log('run')
+  console.log({ clientId, projectTitle, projectType, assigned_on, due_on })
   try {
     let id = uuidv4();
     await db.execute("insertOrUpdateProject", {

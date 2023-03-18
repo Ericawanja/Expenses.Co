@@ -1,7 +1,7 @@
 create
 or alter Procedure getAllProjects AS BEGIN
 select
-    id,
+    projects.id as id,
     clientId,
     clients.name as clientname,
     projectTitle,
@@ -11,7 +11,7 @@ select
     delivered
 from
     projects
-    inner Join clients on clients.id = clientdId
+    inner Join clients on clients.id = clientId
 where
-    isDeleted = 0
+    projects.isDeleted = 0
 END
