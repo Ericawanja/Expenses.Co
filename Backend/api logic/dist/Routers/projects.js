@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const projects_1 = require("../Controllers/projects");
+const index_1 = require("../middlewares/validator/index");
+const index_2 = require("../schemas/index");
 const projectRouter = (0, express_1.Router)();
 projectRouter.get("/", projects_1.getAllProjects);
 projectRouter.get("/:id", projects_1.getOneProject);
-projectRouter.post("/", projects_1.addProject);
-projectRouter.put("/:id", projects_1.updateProject);
+projectRouter.post("/", (0, index_1.validator)(index_2.projectSchema), projects_1.addProject);
+projectRouter.put("/:id", (0, index_1.validator)(index_2.projectSchema), projects_1.updateProject);
 projectRouter.delete("/:id", projects_1.removeProject);
 exports.default = projectRouter;

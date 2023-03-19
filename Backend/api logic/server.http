@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ
 { 
    
     "email":"unga6@gmail.com",   
-    "name": "unga",
+    "name": "person ",
     "location":"Africa"
 
 }
