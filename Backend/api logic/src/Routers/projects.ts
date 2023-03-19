@@ -6,6 +6,6 @@ const projectRouter = Router()
 projectRouter.get("/", getAllProjects)
 projectRouter.get("/:id", getOneProject)
 projectRouter.post("/", addProject)
-projectRouter.put("/", updateProject)
+projectRouter.put("/:id", updateProject)
 projectRouter.delete("/:id", removeProject)
 export default projectRouter

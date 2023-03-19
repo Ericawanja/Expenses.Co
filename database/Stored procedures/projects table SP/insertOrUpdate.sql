@@ -41,6 +41,6 @@ set
     projectTitle = @projectTitle,
     projectType = @projectType,
     assigned_on = Cast (@assigned_on as date),
-    due_on = cast(@due_on as date)
+    due_on = cast(@due_on as date) where id= @id
 END
 End
