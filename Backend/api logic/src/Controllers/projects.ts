@@ -10,9 +10,9 @@ export const getAllProjects: RequestHandler = async (req, res) => {
     } catch (error) {
       return res.status(500).json({ error });
     }
-  };
+};
   
-  export const getOneProject: RequestHandler = async (req, res) => {
+export const getOneProject: RequestHandler = async (req, res) => {
       const { id } = req.params; 
     try {
       let project =
@@ -23,7 +23,7 @@ export const getAllProjects: RequestHandler = async (req, res) => {
     } catch (error) {
       return res.status(500).json({ error });
     }
-  };
+};
 
 export const addProject: RequestHandler = async (req, res) => {
   const { clientId, projectTitle, projectType, assigned_on, due_on } = req.body;

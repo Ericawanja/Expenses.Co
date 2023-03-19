@@ -1,6 +1,6 @@
 create table projects(
     id varchar(100) primary key,
-    clientId varchar(100) Foreign key(id) references clients,
+    clientId varchar(100) Foreign key(clientId) references clients(id),
     projectTitle varchar(200) Not null,
     projectType varchar(200) Not Null,
     assigned_on Date Not Null,
