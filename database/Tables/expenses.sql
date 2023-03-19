@@ -3,5 +3,7 @@ create table expenses(
     projectId varchar(100) FOREIGN key (id) REFERENCES projects,
     expenditure Money,
     Budget Money,
-    isPaid Bit default 0
+    isPaid Bit default 0,
+	isDeleted Bit default 0
 )
+
