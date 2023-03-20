@@ -57,3 +57,20 @@ export const updateProjectExpenses: RequestHandler = async (req, res) => {
     res.status(500).json({ error: message });
   }
 };
+
+export const removeProjectExpenses: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const projectExists =
+      (await db.execute("getOneProjectExpense", { id })).length === 0
+        ? false
+        : true;
+    if (!projectExists)
+      return res.status(504).json({ error: "Incorrect project expense id" });
+    await db.execute("removeProjectExpense", {id}) 
+    return res.status(200).json({message:"You have succesfully deleted the details"})
+  } catch (error) {
+    let message = error || "An error occured. Try again later";
+    res.status(500).json({ error: message });
+  }
+};
