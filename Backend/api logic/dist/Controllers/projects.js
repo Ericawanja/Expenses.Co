@@ -37,7 +37,6 @@ const getOneProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getOneProject = getOneProject;
 const addProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { clientId, projectTitle, projectType, assigned_on, due_on } = req.body;
-    console.log('run');
     console.log({ clientId, projectTitle, projectType, assigned_on, due_on });
     try {
         let id = (0, uuid_1.v4)();
