@@ -5,6 +5,7 @@ import path from "path";
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 interface payload {
+  name?:string,
   email: string;
   id?: string;
   isAdmin?: string | number;

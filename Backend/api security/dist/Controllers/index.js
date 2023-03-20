@@ -51,6 +51,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!isCorrect)
             return res.status(400).json({ error: "invalid login creditials" });
         const token = (0, generateToken_1.generateToken)({
+            name: user[0].name,
             email: user[0].email,
             id: user[0].id,
             isAdmin: user[0].isAdmin,

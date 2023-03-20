@@ -12,6 +12,7 @@ interface decodedData extends JwtPayload {
   isAdmin: boolean;
   email: string;
   id: string;
+  name:string
 }
 export default async function adminVerification(
   req: ExtendedRequest,

@@ -64,6 +64,7 @@ export const login = async (req: loginRequest, res: Response) => {
       return res.status(400).json({ error: "invalid login creditials" });
 
     const token = generateToken({
+      name:user[0].name,
       email: user[0].email,
       id: user[0].id,
       isAdmin: user[0].isAdmin,
