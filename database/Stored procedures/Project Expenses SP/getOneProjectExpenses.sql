@@ -1,5 +1,5 @@
 create
-or alter procedure getOneProjectsExpenses
+or alter procedure getOneProjectExpense
 (@id varchar(100))
  AS BEGIN
 select

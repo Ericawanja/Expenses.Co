@@ -77,3 +77,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ
 Delete http://localhost:4500/projects/123
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzkzMTIzOTIsImV4cCI6MTY3OTM5ODc5Mn0.wUeJ8FTYU7UDb7F84Kyx9FyCGGez22JaRxCip4_Kyd4
 
+###
+GET http://localhost:4500/expenses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzkzMTIzOTIsImV4cCI6MTY3OTM5ODc5Mn0.wUeJ8FTYU7UDb7F84Kyx9FyCGGez22JaRxCip4_Kyd4
+
+
+###
+Post http://localhost:4500/expenses
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzkzMTIzOTIsImV4cCI6MTY3OTM5ODc5Mn0.wUeJ8FTYU7UDb7F84Kyx9FyCGGez22JaRxCip4_Kyd4
+
+{
+    "projectId": "04a3ce82-f443-4482-b08e-54e0f6ea59ea",
+    "expenditure": 2309,
+    "budget": 234  
+}
+
+###
+Put http://localhost:4500/expenses/12
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzkzMTIzOTIsImV4cCI6MTY3OTM5ODc5Mn0.wUeJ8FTYU7UDb7F84Kyx9FyCGGez22JaRxCip4_Kyd4
+
+{
+    "projectId": "04a3ce82-f443-4482-b08e-54e0f6ea59ea",
+    "expenditure": 2309,
+    "budget": 234  
+}
+
+###
+Delete http://localhost:4500/expenses/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvZWpAZ21haWwuY29tIiwiaWQiOiI2ZmM4MzUyNC0yZTk0LTQ2ZmQtYjE2Zi1kNmI4MzljM2Q5ODYiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NzkzMTIzOTIsImV4cCI6MTY3OTM5ODc5Mn0.wUeJ8FTYU7UDb7F84Kyx9FyCGGez22JaRxCip4_Kyd4

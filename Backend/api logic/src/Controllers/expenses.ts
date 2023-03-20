@@ -35,6 +35,7 @@ export const insertProjectExpenses: RequestHandler = async (req, res) => {
 
 export const updateProjectExpenses: RequestHandler = async (req, res) => {
   const { id } = req.params;
+ 
   const projectExists =
     (await db.execute("getOneProjectExpense", { id })).length === 0
       ? false

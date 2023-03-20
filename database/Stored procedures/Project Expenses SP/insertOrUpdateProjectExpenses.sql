@@ -21,7 +21,7 @@ ELSE BEGIN
 update
     expenses
 set
-    id = @id,
+    
     projectId = @projectId,
     expenditure = @expenditure,
     budget = @budget,
