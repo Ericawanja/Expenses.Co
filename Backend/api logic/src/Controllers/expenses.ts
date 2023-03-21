@@ -75,3 +75,10 @@ export const removeProjectExpenses: RequestHandler = async (req, res) => {
     res.status(500).json({ error: message });
   }
 };
+
+export const generateALLInvoices:RequestHandler = async(req, res)=>{
+
+}
+//generate invoices
+//deliver a task
+//add payments
