@@ -117,8 +117,22 @@ export const deliverProject: RequestHandler = async (req, res) => {
   }
 };
 
-//generateAll invoices (admin)
-
+export const markProjectPaid: RequestHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let projectExists =
+      (await db.execute("getOneproject", { id })).length > 0 ? true : false;
+    if (!projectExists)
+      return res
+        .status(404)
+        .json({ error: "Project not found. Please add it first" });
+    await db.execute("markProjectAsPaid", { projectId: id });
+    res.status(200).json({ message: "The payment made" });
+  } catch (error) {
+    let message = error || "An error occured.Try again later";
+    res.status(500).json({ error: message });
+  }
+};
 
 //generate clients invoices thd client
 //should be able to see their invoices only

@@ -18,6 +18,12 @@ export const insertProjectExpenses: RequestHandler = async (req, res) => {
   const id = uuidv4();
   const { projectId, expenditure, budget } = req.body;
   try {
+    //check if the project with the same projectId exists
+  
+    const expenseExists = (await db.query(`Select * from expenses where projectId = '${projectId}'`))
+        
+     
+    if(expenseExists) return res.status(504).json({error:"This project exists"})  
     await db.execute("insertOrUpdateProjectExpenses", {
       id,
       projectId,
@@ -35,7 +41,7 @@ export const insertProjectExpenses: RequestHandler = async (req, res) => {
 
 export const updateProjectExpenses: RequestHandler = async (req, res) => {
   const { id } = req.params;
- 
+
   const projectExists =
     (await db.execute("getOneProjectExpense", { id })).length === 0
       ? false
@@ -68,12 +74,12 @@ export const removeProjectExpenses: RequestHandler = async (req, res) => {
         : true;
     if (!projectExists)
       return res.status(504).json({ error: "Incorrect project expense id" });
-    await db.execute("removeProjectExpense", {id}) 
-    return res.status(200).json({message:"You have succesfully deleted the details"})
+    await db.execute("removeProjectExpense", { id });
+    return res
+      .status(200)
+      .json({ message: "You have succesfully deleted the details" });
   } catch (error) {
     let message = error || "An error occured. Try again later";
     res.status(500).json({ error: message });
   }
 };
-
-

@@ -1,6 +1,7 @@
 import mssql from "mssql";
 import { sqlConfig } from "../config";
 
+
 class Connection {
   private pool: Promise<mssql.ConnectionPool>;
   constructor() {
@@ -26,6 +27,12 @@ class Connection {
     let result = await (await requestObj.execute(storedProcedure)).recordset;
     return result;
   };
+  query = async(query:string)=>{
+    
+    const request = await (await this.pool).request()
+    const res = await (await request.query(query)).recordset
+    return res
+  }
 }
 
 export const db = new Connection();
