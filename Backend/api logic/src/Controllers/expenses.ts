@@ -19,11 +19,20 @@ export const insertProjectExpenses: RequestHandler = async (req, res) => {
   const { projectId, expenditure, budget } = req.body;
   try {
     //check if the project with the same projectId exists
-  
-    const expenseExists = (await db.query(`Select * from expenses where projectId = '${projectId}'`))
-        
-     
-    if(expenseExists) return res.status(504).json({error:"This project exists"})  
+
+    const expenseExists = await db.query(
+      `Select * from expenses where projectId = '${projectId}'`
+    );
+
+    if (expenseExists.length > 0)
+      return res.status(504).json({ error: "This project details exists" });
+
+    const project = await db.query(
+      `select * from projects where id = '${projectId}'`
+    );
+    if (project.length === 0)
+      return res.status(504).json({ error: "This project does not exist" });
+
     await db.execute("insertOrUpdateProjectExpenses", {
       id,
       projectId,
