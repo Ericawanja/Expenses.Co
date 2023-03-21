@@ -2,16 +2,15 @@ import { Request, RequestHandler, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../helpers/dbConnect";
 
-type project= {
-  id:string,
-  clientId:string,
-  projectTitle:string,
-  projectType:string,
-  assigned_on:Date,
-  due_on:Date,
-  delivered:Boolean
-
-}[]
+type project = {
+  id: string;
+  clientId: string;
+  projectTitle: string;
+  projectType: string;
+  assigned_on: Date;
+  due_on: Date;
+  delivered: Boolean;
+}[];
 
 export const getAllProjects: RequestHandler = async (req, res) => {
   try {
@@ -101,15 +100,28 @@ export const removeProject: RequestHandler = async (req, res) => {
 export const deliverProject: RequestHandler = async (req, res) => {
   const { id } = req.params;
   try {
-    let project:project =   await db.execute("getOneproject", { id }) 
+    let project: project = await db.execute("getOneproject", { id });
     let projectValid =
-     project.length === 0 ? false: project[0].delivered ? false: true;
+      project.length === 0 ? false : project[0].delivered ? false : true;
     if (!projectValid)
-      return res.status(404).json({ error: "Project not found or has already been delivered" });
+      return res
+        .status(404)
+        .json({ error: "Project not found or has already been delivered" });
     await db.execute("deliverProject", { id });
-    res.status(200).json({message: "The project has been marked as completed"})
+    res
+      .status(200)
+      .json({ message: "The project has been marked as completed" });
   } catch (error) {
     let message = error || "An error occured.Try again later";
     res.status(500).json({ error: message });
   }
 };
+
+//generateAll invoices (admin)
+
+
+//generate clients invoices thd client
+//should be able to see their invoices only
+//generate invoices
+//deliver a task
+//add payments
