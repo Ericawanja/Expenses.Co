@@ -5,6 +5,8 @@ create table projects(
     projectType varchar(200) Not Null,
     assigned_on Date Not Null,
     due_on Date Not Null,
-    delivered Bit default 0,
+    budget Money,
+    isDelivered Bit default 0,
+    isPaid Bit default 0,
     isDeleted Bit default 0
 )

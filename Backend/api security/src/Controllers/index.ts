@@ -21,6 +21,12 @@ interface loginRequest extends Request {
     password: string;
   };
 }
+
+interface ILoginBody{
+  email: string;
+  password: string;
+
+}
 interface forgotRequest extends Request {
   body: {
     email: string;
@@ -52,7 +58,7 @@ export const register = async (req: registerRequest, res: Response) => {
   }
 };
 
-export const login = async (req: loginRequest, res: Response) => {
+export const login = async (req: Request <{}, {}, ILoginBody>, res: Response) => {
   let { email, password } = req.body;
   try {
     let user = await db.execute("getUSer", { email });
