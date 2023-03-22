@@ -8,7 +8,9 @@ select
     projectType,
     assigned_on,
     due_on,
-    delivered
+    isDelivered,
+    budget,
+    isPaid
 from
     projects
     inner Join clients on clients.id = clientId

@@ -1,16 +1,20 @@
 create
 or alter procedure getOneProject(@id varchar(100)) AS BEGIN
 select
-    id,
+     projects.id as id,
     clientId,
+    clients.name as clientname,
     projectTitle,
     projectType,
     assigned_on,
     due_on,
-    delivered
+    isDelivered,
+    budget,
+    isPaid
 from
     projects
+     inner Join clients on clients.id = clientId
 where
-    isDeleted = 0
-    AND id = @id
+    projects.isDeleted = 0
+    AND projects.id = @id
 end

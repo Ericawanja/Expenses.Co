@@ -6,7 +6,8 @@ or alter procedure insertOrUpdateProject(
     @projectType varchar(100),
     @assigned_on Date,
     @due_on Date,
-    @delivered Bit = 0
+    @budget Money,
+  @isPaid Bit = 0
 ) AS BEGIN Declare @exists Bit
 select
     @exists = count(id)
@@ -21,7 +22,9 @@ insert into
         projectTitle,
         projectType,
         assigned_on,
-        due_on
+        due_on, 
+        budget,
+        isPaid
     )
 values
     (
@@ -30,7 +33,9 @@ values
         @projectTitle,
         @projectType,
         @assigned_on,
-        @due_on
+        @due_on,
+        @budget,
+        @isPaid
     )
 End
 ELSE BEGIN
