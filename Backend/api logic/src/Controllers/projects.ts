@@ -34,9 +34,17 @@ export const getOneProject: RequestHandler = async (req, res) => {
 };
 
 export const addProject: RequestHandler = async (req, res) => {
-  const { clientId, projectTitle, projectType, assigned_on, due_on } = req.body;
+  const { clientId, projectTitle, projectType, assigned_on, due_on, budget } =
+    req.body;
 
-  console.log({ clientId, projectTitle, projectType, assigned_on, due_on });
+  console.log({
+    clientId,
+    projectTitle,
+    projectType,
+    assigned_on,
+    due_on,
+    budget,
+  });
   try {
     let id = uuidv4();
     await db.execute("insertOrUpdateProject", {
@@ -46,6 +54,7 @@ export const addProject: RequestHandler = async (req, res) => {
       projectType,
       assigned_on,
       due_on,
+      budget,
     });
     return res
       .status(201)
@@ -57,7 +66,8 @@ export const addProject: RequestHandler = async (req, res) => {
 
 export const updateProject: RequestHandler = async (req, res) => {
   const { id } = req.params;
-  const { clientId, projectTitle, projectType, assigned_on, due_on } = req.body;
+  const { clientId, projectTitle, projectType, assigned_on, due_on, budget } =
+    req.body;
   try {
     let projectExists =
       (await db.execute("getOneproject", { id })).length > 0 ? true : false;
@@ -70,6 +80,7 @@ export const updateProject: RequestHandler = async (req, res) => {
       projectType,
       assigned_on,
       due_on,
+      budget,
     });
     return res.status(200).json({
       message: `You have successfully updated the ${projectTitle} project`,
@@ -120,12 +131,13 @@ export const deliverProject: RequestHandler = async (req, res) => {
 export const markProjectPaid: RequestHandler = async (req, res) => {
   const { id } = req.params;
   try {
+    let project = await db.execute("getOneproject", { id });
     let projectExists =
-      (await db.execute("getOneproject", { id })).length > 0 ? true : false;
+      project.length === 0 ? false : project[0].isDelivered ? true : false;
     if (!projectExists)
       return res
         .status(404)
-        .json({ error: "Project not found. Please add it first" });
+        .json({ error: "Project not found or has not been marked as delivered." });
     await db.execute("markProjectAsPaid", { projectId: id });
     res.status(200).json({ message: "The payment made" });
   } catch (error) {
@@ -134,8 +146,4 @@ export const markProjectPaid: RequestHandler = async (req, res) => {
   }
 };
 
-//generate clients invoices thd client
-//should be able to see their invoices only
-//generate invoices
-//deliver a task
-//add payments
+
