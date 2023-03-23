@@ -1,15 +1,13 @@
 create
-or alter procedure getOneProjectExpense
-(@id varchar(100))
- AS BEGIN
+or alter procedure getParticularProjectExpenses(@projectId varchar(100)) AS BEGIN
 select
     id,
     projectId,
-    expenditure,
-    budget,
-    isPaid
+    expenseTitle,
+    expenseDescription
 from
     expenses
 where
-    isDeleted = 0 AND id = @id
+    isDeleted = 0
+    AND projectId = @projectId
 END

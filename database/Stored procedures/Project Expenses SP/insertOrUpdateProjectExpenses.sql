@@ -2,9 +2,8 @@ create
 or alter procedure insertOrUpdateProjectExpenses (
     @id varchar(100),
     @projectId varchar(100),
-    @expenditure Money,
-    @budget Money,
-    @isPaid Bit = 0
+    @expenseTitle Money,
+    @expenseDescription varchar(400)
 ) AS BEGIN Declare @exist BIT
 select
     @exist = count(id)
@@ -13,18 +12,21 @@ from
 where
     id = @id if @exist = 0 BEGIN
 insert into
-    expenses (id, projectId, expenditure, budget, isPaid)
+    expenses (id, projectId, expenseTitle, expenseDescription)
 values
-    (@id, @projectId, @expenditure, @budget, @isPaid)
+    (
+        @id,
+        @projectId,
+        @expenseTitle,
+        @expenseDescription
+    )
 End
 ELSE BEGIN
 update
     expenses
 set
-    
     projectId = @projectId,
-    expenditure = @expenditure,
-    budget = @budget,
-    isPaid = @isPaid
+    expenseTitle = @expenseTitle,
+    expenseDescription = @expenseDescription
 End
 END

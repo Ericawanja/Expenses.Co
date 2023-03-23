@@ -3,9 +3,8 @@ or alter procedure getAllProjectsExpenses AS BEGIN
 select
     id,
     projectId,
-    expenditure,
-    budget,
-    isPaid
+    expenseTitle,
+    expenseDescription
 from
     expenses
 where
