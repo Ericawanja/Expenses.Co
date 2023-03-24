@@ -1,6 +1,8 @@
 import { RequestHandler } from "express";
 import { db } from "../helpers/dbConnect";
 import { v4 as uuidv4 } from "uuid";
+import projectRouter from "../Routers/projects";
+import expensesRouter from "../Routers/expenses";
 
 export const getAllProjectExpenses: RequestHandler = async (req, res) => {
   try {
@@ -14,18 +16,29 @@ export const getAllProjectExpenses: RequestHandler = async (req, res) => {
   }
 };
 
+export const getParticularProjectExpenses: RequestHandler = async (
+  req,
+  res
+) => {
+  const { projectId } = req.params;
+  try {
+    const expenses = await db.execute("getParticularProjectExpenses", {
+      id: projectId,
+    });
+
+    if (expenses.length === 0)
+      return res.status(500).json({ error: "No projects found" });
+    return res.status(200).json({ data: expenses });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
 export const insertProjectExpenses: RequestHandler = async (req, res) => {
   const id = uuidv4();
-  const { projectId, expenditure, budget } = req.body;
+  const { projectId, expenseTitle, expenseDescription } = req.body;
   try {
-    //check if the project with the same projectId exists
-
-    const expenseExists = await db.query(
-      `Select * from expenses where projectId = '${projectId}'`
-    );
-
-    if (expenseExists.length > 0)
-      return res.status(504).json({ error: "This project details exists" });
+    //check if the project exists
 
     const project = await db.query(
       `select * from projects where id = '${projectId}'`
@@ -36,8 +49,8 @@ export const insertProjectExpenses: RequestHandler = async (req, res) => {
     await db.execute("insertOrUpdateProjectExpenses", {
       id,
       projectId,
-      expenditure,
-      budget,
+      expenseTitle,
+      expenseDescription,
     });
     res
       .status(201)
@@ -57,13 +70,13 @@ export const updateProjectExpenses: RequestHandler = async (req, res) => {
       : true;
   if (!projectExists)
     return res.status(504).json({ error: "Incorrect project expense id" });
-  const { projectId, expenditure, budget } = req.body;
+  const { projectId, expenseTitle, expenseDescription } = req.body;
   try {
     await db.execute("insertOrUpdateProjectExpenses", {
       id,
       projectId,
-      expenditure,
-      budget,
+      expenseTitle,
+      expenseDescription,
     });
     res
       .status(200)
@@ -92,3 +105,4 @@ export const removeProjectExpenses: RequestHandler = async (req, res) => {
     res.status(500).json({ error: message });
   }
 };
+

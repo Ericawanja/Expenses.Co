@@ -3,5 +3,6 @@ create table expenses(
     projectId varchar(100) FOREIGN key (projectId) REFERENCES projects(id),
     expenseTitle varchar(150),
     expenseDescription varchar(400),
+    amount  Money,
    	isDeleted Bit default 0
 )
